@@ -33,6 +33,6 @@ public class RoomController {
 
     @GetMapping("/talkplus/room03")
     public String talkplus03() {
-        return "roomtype02";
+        return "roomtype03";
     }
 }

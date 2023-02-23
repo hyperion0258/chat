@@ -7,9 +7,10 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/chat.css">
     <script src="https://asset.talkplus.io/talkplus-js-0.3.6.js"></script>
+    <script src="/js/jquery-1.12.4-min.js"></script>
     <script type="text/javascript" src="/js/chat.js"></script>
-
 </head>
 <body>
     <div class="wrap">
@@ -18,9 +19,17 @@
                 <video src="/video/vd.mp4"  autoplay="autoplay" muted="muted"></video>
             </div>
             <div class="chatArea">
-                채팅붙히세유
+
+            </div>
+            <div>
+                <input type="text" placeholder="Press Enter for send message" class="enterMessage">
             </div>
         </div>
     </div>
+    <span class="changeName">
+        <h4>닉네임 변경</h4>
+        <input type="text" placeholder="변경할 닉네임을 입력" class="changeNameInput">
+        <button onclick=updateUser();>확인</button>
+    </span>
 </body>
 </html>

@@ -69,9 +69,9 @@ body{
 .type01 .chatArea{
     background:#000;
     padding:15px;
-    height:300px;
-
-
+    height:260px;
+    border: white 1px solid;
+    overflow-y:auto;
 }
 .type02{
     display:flex;
@@ -91,10 +91,9 @@ body{
 .type02 .chatArea{
     background:#000;
     padding:15px;
-    
     border-left:1px solid #3a3a3a;
     flex:1;
-
+    overflow-y:auto;
 }
 
 .type03 .videoWrap{
@@ -109,7 +108,8 @@ body{
     width:100%;
     background:rgba(0,0,0,0.3);
     padding:15px;
-    height:300px;
+    height:260px;
     position:Absolute;
-    bottom:0;
+    bottom:40px;
+    overflow-y:auto;
 }

@@ -1,0 +1,46 @@
+.enterMessage {
+    background-color: black;
+    width: 100%;
+    height: 40px;
+    border: 1px white solid;
+    padding: 0px;
+    bottom: 0px;
+    color: white;
+}
+
+.writer > .message-text {
+    color: white;
+    text-align:right;
+}
+
+.writer > .user {
+    color: white;
+    text-align:right;
+}
+
+.others > .message-text {
+    color: white;
+    text-align:left;
+}
+
+.others > .user {
+    color: white;
+    text-align:left;
+}
+
+.changeName {
+    position: absolute;
+    margin-left: 100px;
+    margin-top: 100px;
+    width: 250px;
+    height: 100px;
+    border: solid 1px black;
+}
+
+.changeName > input {
+    border: solid 1px black;
+}
+
+.changeName > button {
+    border: solid 1px black;
+}
