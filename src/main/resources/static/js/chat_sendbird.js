@@ -1,10 +1,4 @@
 const appId = "2052a7e3-6110-4a2a-8cfd-ae58d3f57394"
-let userId = ""
-let userName = ""
-let password = ""
-let loginToken = ""
-const channelName = ""
-const channelId = ""
 const client = new TalkPlus.Client({appId: appId});
 let pathName = (window.location.pathname).replaceAll("/", "").toString();
 
@@ -25,7 +19,6 @@ $(document).ready(function() {
     writerSendMessage();
     // 방 입장시 스크롤다운되게끔
     scrollDown();
-    lengthCheck();
 });
 
 
@@ -186,8 +179,8 @@ function writerSendMessageToServer(message) {
 function writerSendMessageAddHtml(message) {
     let template = '';
     template = `<div class="writer">
-                    <div class="message-text">${message.text}</div>
                     <div class="user">${message.username}</div>
+                    <div class="message-text">${message.text}</div>
                 </div>`
     return template;
 }
@@ -264,13 +257,4 @@ function updateUser() {
         username: newUserName,
     });
     alert("닉네임이 " + newUserName + " (으)로 변경되었습니다")
-}
-
-function lengthCheck() {
-    $(".changeName > input").keydown(function (e) {
-            let inputLength = $(this).val().length;
-            if(inputLength >= 8) {
-                alert("닉네임은 8글자를 초과할 수 없습니다")
-            }
-    })
 }
