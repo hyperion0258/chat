@@ -153,11 +153,13 @@ function start() {
         })
     }
 }
-// 사용자가 엔터를치면 input태그를 비워주고 서버에 메세지를 보내는 함수를 호출
+// 사용자가 엔터를치거나 보내는 버튼을 클릭하면 input태그를 비워주고 서버에 메세지를 보내는 함수를 호출
 function writerSendMessage() {
+    // 키 이벤트
     $(document).keypress(function (e) {
+        // input태그의 value가 공백이 아니고
         if ($('.enterMessage').val() !== ''){
-            // keyCode 13 = enter
+            // keyCode 13 = enter 일때
             if (e.keyCode === 13) {
                 // preventDefault는 input태그의 고유동작(페이지 리로드)을 중지시킴
                 e.preventDefault();
@@ -169,6 +171,19 @@ function writerSendMessage() {
             }
         }
     });
+    // 클릭 이벤트
+    $('.sendbtn').click(function (e) {
+        // input태그의 value가 공백이 아니고
+        if ($('.enterMessage').val() !== ''){
+            // preventDefault는 input태그의 고유동작(페이지 리로드)을 중지시킴
+            e.preventDefault();
+            const message = $('.enterMessage').val();
+            // 클릭후 input태그의 내용을 비워줌
+            $('.enterMessage').val('');
+            // 서버에 메세지를 보내는 함수를 호출
+            writerSendMessageToServer(message);
+        }
+    })
 }
 
 // 사용자가 쓴 메세지를 서버에 보내는 함수
