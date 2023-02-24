@@ -1,5 +1,6 @@
-// appId는 talkplus에서 제공 하는 고유 아이디로서 30일(2023-03-14까지) 사용 가능, 그 이후에 사용하려면 유료결제가 필요함
+// appId, appKey는 talkplus에서 제공 하는 고유 아이디와 키로 30일(2023-03-14까지) 사용 가능, 그 이후에 사용하려면 유료결제가 필요함
 const appId = "2052a7e3-6110-4a2a-8cfd-ae58d3f57394"
+const appKey = "7bec7db09e4952a18eee3ee717d0593c94bd2d2dfa7f1fe10c6e3ff1a9d7b2ba"
 let userId = ""
 let userName = ""
 let password = ""
@@ -22,12 +23,14 @@ $(document).ready(function() {
             scrollDown()
         }
     })
+    $('.layer_popWrap').hide();
     // init 함수(익명 로그인, 채널생성, 채널입장, 채널 메세지들 가져오기)
     start();
     // 사용자가 글작성해서 엔터치면 서버에 전달
     writerSendMessage();
     // 닉네임 변경 길이 체크 함수
     lengthCheck();
+    // 채팅창 클릭시 사용자 닉네임 변경 팝업창 띄우는 함수
 });
 
 
@@ -42,8 +45,10 @@ function start() {
         }, function (errResp, data) {
             console.log("loginAnonymous_errResp : " + JSON.stringify(errResp))
             console.log("loginAnonymous_data : " + JSON.stringify(data))
-            // 익명 로그인이 성공하면 로컬스토리지에 userId를 저장
+            // 익명 로그인이 성공하면 로컬스토리지에 userId, username을 저장
             localStorage.setItem('userId', JSON.stringify(data.user.id))
+            // 팝업창 띄우는 함수
+            layerPopWrap(data.user.id)
             // 익명 로그인이 실패시
             if (errResp) {
                 // 에러 경고문 발생
@@ -104,6 +109,8 @@ function start() {
         }, function (errResp, data) {
             console.log("loginAnonymous_errResp : " + JSON.stringify(errResp))
             console.log("loginAnonymous_data : " + JSON.stringify(data))
+            // 팝업창 띄우는 함수
+            layerPopWrap(data.user.id)
             if (errResp) {
                 return alert(JSON.stringify(errResp))
             }
@@ -212,8 +219,8 @@ function writerSendMessageToServer(message) {
 function writerSendMessageAddHtml(message) {
     let template = '';
     template = `<div class="writer">
-                    <div class="message-text">${message.text}</div>
                     <div class="user">${message.username}</div>
+                    <div class="message-text">${message.text}</div>
                 </div>`
     return template;
 }
@@ -305,6 +312,7 @@ function updateUser() {
         username: newUserName,
     });
     alert("닉네임이 " + newUserName + " (으)로 변경되었습니다")
+    $('.layer_popWrap').hide();
 }
 
 // 사용자 닉네임 변경시 길이 체크(최대 8글자)해서 경고문 띄우는 함수
@@ -315,5 +323,39 @@ function lengthCheck() {
         if(inputLength > 8) {
             alert("닉네임은 8글자를 초과할 수 없습니다")
         }
+    })
+}
+
+// 사용자 조회를 하고 조회 닉네임이 공백인 경우(최초 진입) 사용자 닉네임 변경 팝업창 띄우는 함수
+function layerPopWrap(userId, userName) {
+    // 채팅창 클릭시
+    $('.enterMessage').click(function (e) {
+        // 사용자 조회 api
+        $.ajax({
+            type: "GET",
+            url: "https://api.talkplus.io/v1.4/api/users/" + userId,
+            contentType : "application/json",
+            dataType: "json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("api-key", appKey)
+                xhr.setRequestHeader("app-id", appId)
+            },
+            success: function (res) {
+                console.log("Get User response : " + JSON.stringify(res))
+                // 조회 닉네임이 공백인 경우
+                if(res.user.username === "") {
+                    // 팝업창 띄움
+                    $('.layer_popWrap').show();
+                }
+            },
+            error: function (err) {
+                console.log("Get User error : " + JSON.stringify(err))
+            }
+        })
+    })
+    // 팝업창 x 표시 클릭시
+    $('.close_popup > .blind').click(function (e) {
+        // 팝업창 닫음
+        $('.layer_popWrap').hide();
     })
 }

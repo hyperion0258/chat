@@ -5,10 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;family=Noto+Sans+KR:wght@400;500&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/common.css">
     <script src="https://asset.talkplus.io/talkplus-js-0.3.6.js"></script>
     <script src="/js/jquery-1.12.4-min.js"></script>
+    <script type="text/javascript" src="/js/design_common.js"></script>
     <script type="text/javascript" src="/js/chat_talkplus.js"></script>
 </head>
 <body>
@@ -26,10 +29,32 @@
             </div>
         </div>
     </div>
-    <span class="changeName">
-        <h4>닉네임 변경</h4>
-        <input type="text" placeholder="변경할 닉네임을 입력" class="changeNameInput" maxlength="8">
-        <button onclick=updateUser();>확인</button>
-    </span>
+    <div class="layer_popWrap open" id="popid01"> <!-- 참여자 정보 입력 -->
+        <div class="dimed"></div>
+        <div class="layer_pop ">
+            <!-- 팝업 닫기 -->
+            <div class="close_popup" onclick="layerPopClose('popid01')">
+                <span class="blind">닫기</span>
+            </div>
+            <div class="layer_pop_tit">
+                참여자 정보 입력
+            </div>
+            <div class="layer_pop_desc">
+                <div class="copy_link">
+                    <div class="nickname_label">닉네임</div>
+                    <div class="ipWrap">
+                        <input type="text" style="width:100%;" class="changeNameInput" maxlength="8">
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="btnWrap">
+                <a class="type01" onclick="updateUser();" href="#">확인</a>
+            </div>
+
+        </div>
+    </div>
 </body>
 </html>
